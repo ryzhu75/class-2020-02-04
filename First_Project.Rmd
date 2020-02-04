@@ -12,4 +12,14 @@ library(gov.1005.data)
 ```{r}
 data(congress)
 congress %>% arrange(desc(age))
+
+age_data <- congress %>%
+  filter(party %in% c("D", "R")) %>%
+  group_by(year, party) %>%
+  summarize(avg_age = mean(age)) 
+
+age_data 
+
+ggplot(age_data, aes(x=year, y=avg_age, color = party)) +
+  geom_line()
 ```
